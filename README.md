@@ -16,38 +16,34 @@ SquadRunner is an architecture pattern for orchestrating multi-agent AI workflow
 
 ## How It Works
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   Human (PO)    │────▶│  Claw-based CUA │────▶│  GitHub Issues  │
-│                 │     │  Chief of Staff │     │  (Backlog)      │
-└─────────────────┘     └─────────────────┘     └────────┬────────┘
-                                                         │
-                        ┌────────────────────────────────┘
-                        ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                     SquadRunner VM (Azure)                      │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  squad watch --execute --interval 5 --verbose           │   │
-│  │                                                         │   │
-│  │  Ralph (Monitor) ──▶ Danny (Triage) ──┬──▶ Basher      │   │
-│  │                                       ├──▶ Linus       │   │
-│  │                                       ├──▶ Saul        │   │
-│  │                                       └──▶ Scribe      │   │
-│  └─────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
-                        │
-                        ▼
-              ┌─────────────────┐
-              │   GitHub PRs    │
-              │   (Output)      │
-              └─────────────────┘
+```mermaid
+flowchart TD
+    subgraph Input
+        H[Human PO] --> CUA[Claw-based CUA<br/>Chief of Staff]
+        CUA --> GH[GitHub Issues<br/>Backlog]
+    end
+    
+    subgraph SquadRunner VM
+        GH --> R[Ralph<br/>Monitor]
+        R --> D[Danny<br/>Squad Leader]
+        D --> B[Basher]
+        D --> L[Linus]
+        D --> S[Saul]
+        D --> SC[Scribe]
+    end
+    
+    subgraph Output
+        B --> PR[GitHub PRs]
+        L --> PR
+        S --> PR
+    end
 ```
 
 ## Squad Agents
 
 | Agent | Role | Specialty |
 |-------|------|-----------|
-| **Danny** | Lead/Architect | Triages issues, breaks down epics, dispatches work |
+| **Danny** | Squad Leader | Triages issues, breaks down epics, dispatches work |
 | **Basher** | Backend Dev | Python, APIs, auth, infrastructure |
 | **Linus** | Frontend Dev | React, TypeScript, UI components |
 | **Saul** | Data Engineer | Fabric, SQL, data pipelines |
