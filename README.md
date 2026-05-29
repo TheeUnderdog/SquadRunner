@@ -72,7 +72,7 @@ Optional routing:
 
 ### SSH Config
 
-Have your CUA add this to `~/.ssh/config`:
+> "Set up SSH access to my SquadRunner VM at `<vm-public-ip>` with user `squad`"
 
 ```
 Host squadrunner
@@ -83,45 +83,33 @@ Host squadrunner
 
 ### Squad CLI Installation
 
-Have your CUA SSH to the VM and run:
+> "SSH to squadrunner and install Node.js 20, Squad CLI, and authenticate GitHub"
 
 ```bash
-# Install Node.js
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
-# Install Squad CLI
 sudo npm install -g @bradygaster/squad-cli
-
-# Authenticate GitHub
 gh auth login
 ```
 
 ### Running Squad Watch
 
-Have your CUA start the watch daemon:
+> "Start squad watch on `~/repos/your-project` in a tmux session"
 
 ```bash
-# Create tmux session
 tmux new-session -d -s squad
-
-# Start watching
 tmux send-keys -t squad 'cd ~/repos/your-project && squad watch --execute --interval 5 --verbose' Enter
-
-# Attach to monitor
-tmux attach -t squad
 ```
 
 ### Windows Terminal Integration
 
-Have your CUA add a shortcut profile to Windows Terminal:
+> "Add a SquadRunner profile to Windows Terminal that SSHs into the tmux session"
 
 ```json
 {
   "name": "SquadRunner",
   "commandline": "ssh squadrunner -t 'tmux attach -t squad || tmux new -s squad'",
-  "icon": "🤖",
-  "startingDirectory": "~"
+  "icon": "🤖"
 }
 ```
 
@@ -137,17 +125,16 @@ Have your CUA add a shortcut profile to Windows Terminal:
 
 ### Sitrep Command
 
-Have your CUA check Squad status:
+> "Check the Squad status on squadrunner"
 
 ```bash
 ssh squadrunner "tmux send-keys -t squad 'sitrep' Enter"
-sleep 2
 ssh squadrunner "tmux capture-pane -t squad -p | tail -50"
 ```
 
 ### Log File
 
-Have your CUA enable persistent logging:
+> "Enable persistent logging for squad watch"
 
 ```bash
 ssh squadrunner "tmux pipe-pane -t squad 'cat >> ~/squad-watch.log'"
