@@ -17,24 +17,24 @@ SquadRunner is an architecture pattern for orchestrating multi-agent AI workflow
 ## How It Works
 
 ```mermaid
-flowchart TD
+flowchart LR
     subgraph Input
         H[Human PO] --> CUA[Claw-based CUA<br/>Chief of Staff]
         CUA --> GH[GitHub Issues<br/>Backlog]
     end
     
     subgraph SquadRunner VM
-        GH --> M[Monitor Agent]
-        M --> SL[Squad Leader]
-        SL --> A1[Agent 1]
-        SL --> A2[Agent 2]
-        SL --> A3[Agent N...]
+        subgraph squad watch
+            GH --> M[Monitor]
+            M --> SL[Squad Leader]
+            SL --> A[Member 1<br/>Member 2<br/>Member N]
+            SL --> SC[Scribe]
+        end
     end
     
     subgraph Output
-        A1 --> PR[GitHub PRs]
-        A2 --> PR
-        A3 --> PR
+        A --> PR[GitHub PRs]
+        SC --> PR
     end
 ```
 
