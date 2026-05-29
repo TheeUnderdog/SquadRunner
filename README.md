@@ -36,15 +36,17 @@ flowchart TD
         end
     end
     
-    VM --> Output
-    Output --> Runner
+    VM --> Bottom
     
-    subgraph Output
-        PR[GitHub PRs]
-    end
-    
-    subgraph Runner[GitHub Runner - optional]
-        CI[CI/CD]
+    subgraph Bottom[ ]
+        direction LR
+        subgraph Output
+            PR[GitHub PRs]
+        end
+        Output --> Runner
+        subgraph Runner[GitHub Runner - optional]
+            CI[CI/CD]
+        end
     end
 ```
 
