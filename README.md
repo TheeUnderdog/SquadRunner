@@ -62,28 +62,13 @@ Optional routing:
 
 ### Prerequisites
 
-- Azure subscription
-- SSH key pair
-- GitHub CLI (`gh`) authenticated
-
-### Provisioning
-
-```bash
-# Create resource group
-az group create --name rg-squadrunner --location westus3
-
-# Create VM
-az vm create \
-  --resource-group rg-squadrunner \
-  --name squadrunner \
-  --image Ubuntu2204 \
-  --size Standard_B2s \
-  --admin-username squad \
-  --ssh-key-values ~/.ssh/id_rsa.pub
-
-# Open SSH
-az vm open-port --resource-group rg-squadrunner --name squadrunner --port 22
-```
+- Linux VM (Ubuntu 22.04+ recommended)
+  - 2 vCPU, 4GB RAM minimum
+  - SSH access enabled
+- SSH key pair configured
+- GitHub CLI (`gh`) installed and authenticated
+- Node.js 20+
+- tmux
 
 ### SSH Config
 
@@ -179,9 +164,9 @@ In our first production run:
 
 | Resource | Monthly Cost |
 |----------|-------------|
-| Azure VM (Standard_B2s) | ~$15 |
+| Small Linux VM (2 vCPU, 4GB) | ~$15-30 |
 | GitHub (existing) | $0 |
-| Total | ~$15/month |
+| Total | ~$15-30/month |
 
 ## License
 
