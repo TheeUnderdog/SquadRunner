@@ -56,7 +56,7 @@ Agents are project-specific. Define your team in `.squad/team.md`:
 
 - **Squad Leader** — triages issues, breaks down epics, dispatches work
 - **Specialist agents** — backend, frontend, data, docs, etc.
-- **Monitor** — polls GitHub, routes issues based on labels
+- **Ralph** — polls GitHub, routes issues based on labels
 - **Scribe** — logs session history, commits decisions
 
 ## Definition of Ready (DOR)
