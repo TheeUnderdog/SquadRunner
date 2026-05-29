@@ -23,21 +23,24 @@ flowchart TD
         H[Human PO] --> CUA[Claw-based CUA<br/>Chief of Staff] --> GH[GitHub Issues<br/>Backlog]
     end
     
-    subgraph SquadRunner VM
-        direction LR
-        subgraph squad watch
+    Input --> VM
+    
+    subgraph VM[SquadRunner VM]
+        subgraph SW[squad watch --execute --interval 5 --verbose]
             direction LR
-            M[Monitor] --> SL[Squad Leader] --> A[Members]
+            R[Ralph] --> SL[Squad Leader]
+            SL --> M1[Member 1]
+            SL --> M2[Member 2]
+            SL --> MN[Member N]
             SL --> SC[Scribe]
         end
     end
     
+    VM --> Output
+    
     subgraph Output
-        direction LR
         PR[GitHub PRs]
     end
-    
-    Input --> SquadRunner VM --> Output
 ```
 
 ## Squad Agents
