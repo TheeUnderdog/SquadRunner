@@ -23,7 +23,7 @@ flowchart TD
         H[Human PO] --> CUA[Claw-based CUA<br/>Chief of Staff] --> GH[GitHub Issues<br/>Backlog]
     end
     
-    GH --> R
+    Input --> VM
     
     subgraph VM[SquadRunner VM]
         subgraph SW[squad watch --execute --interval 5 --verbose]
@@ -36,9 +36,7 @@ flowchart TD
         end
     end
     
-    M1 --> PR
-    M2 --> PR
-    MN --> PR
+    VM --> Output
     
     subgraph Output
         PR[GitHub PRs] --> CI[CI/CD]
