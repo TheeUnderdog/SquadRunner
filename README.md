@@ -9,7 +9,7 @@ SquadRunner is an architecture pattern for orchestrating multi-agent AI workflow
 | Component | Role |
 |-----------|------|
 | **Claw-based CUA** | Chief of Staff — bridges human PO and AI agents, skills, M365 integration |
-| **Squad CLI** | Multi-agent framework — Danny, Basher, Linus, Saul, Scribe, Ralph |
+| **Squad CLI** | Multi-agent framework — define your team in `.squad/team.md` |
 | **SquadRunner VM** | Cloud execution — Azure VM running `squad watch` via SSH/tmux |
 | **GitHub** | Backlog + PRs — issues drive work, labels route to agents |
 | **GH Copilot CLI** | Session-based development — issues, PRs, code in one terminal |
@@ -24,31 +24,28 @@ flowchart TD
     end
     
     subgraph SquadRunner VM
-        GH --> R[Ralph<br/>Monitor]
-        R --> D[Danny<br/>Squad Leader]
-        D --> B[Basher]
-        D --> L[Linus]
-        D --> S[Saul]
-        D --> SC[Scribe]
+        GH --> M[Monitor Agent]
+        M --> SL[Squad Leader]
+        SL --> A1[Agent 1]
+        SL --> A2[Agent 2]
+        SL --> A3[Agent N...]
     end
     
     subgraph Output
-        B --> PR[GitHub PRs]
-        L --> PR
-        S --> PR
+        A1 --> PR[GitHub PRs]
+        A2 --> PR
+        A3 --> PR
     end
 ```
 
 ## Squad Agents
 
-| Agent | Role | Specialty |
-|-------|------|-----------|
-| **Danny** | Squad Leader | Triages issues, breaks down epics, dispatches work |
-| **Basher** | Backend Dev | Python, APIs, auth, infrastructure |
-| **Linus** | Frontend Dev | React, TypeScript, UI components |
-| **Saul** | Data Engineer | Fabric, SQL, data pipelines |
-| **Scribe** | Session Logger | Commits history, merges decisions to repo |
-| **Ralph** | Work Monitor | Polls GitHub, routes issues, tracks PRs |
+Agents are project-specific. Define your team in `.squad/team.md`:
+
+- **Squad Leader** — triages issues, breaks down epics, dispatches work
+- **Specialist agents** — backend, frontend, data, docs, etc.
+- **Monitor** — polls GitHub, routes issues based on labels
+- **Scribe** — logs session history, commits decisions
 
 ## Definition of Ready (DOR)
 
@@ -58,10 +55,8 @@ For Squad to pick up an issue, it needs:
 - `priority:P{N}` label (P0 = critical, P1 = high, P2 = normal, P3 = skip)
 
 Optional routing:
-- `squad:basher` — direct to backend
-- `squad:linus` — direct to frontend
-- `squad:saul` — direct to data
-- No routing label → Danny triages
+- `squad:{member}` — direct to a specific agent
+- No routing label → Squad Leader triages
 
 ## SquadRunner VM Setup
 
@@ -146,8 +141,8 @@ Create a shortcut profile in Windows Terminal:
 ## The Workflow
 
 1. **Groom** — Human + CUA audit GitHub backlog, set priorities and labels
-2. **Watch** — Ralph scans issues every 5 min, routes to Danny or direct to agents
-3. **Execute** — Danny dispatches Basher/Linus/Saul in parallel, Scribe logs
+2. **Watch** — Monitor scans issues, routes to Squad Leader or direct to agents
+3. **Execute** — Squad Leader dispatches specialists in parallel
 4. **Review** — PRs opened as drafts, human reviews via sitrep command
 5. **Merge** — Approved PRs merge, issues close, cycle repeats
 
@@ -176,7 +171,7 @@ ssh squadrunner "tmux pipe-pane -t squad 'cat >> ~/squad-watch.log'"
 In our first production run:
 
 - **3 PRs in 15 minutes** while the human watched
-- **Parallel execution** — Basher + Linus + Scribe running simultaneously
+- **Parallel execution** — multiple agents running simultaneously
 - **Autonomous overnight** — Squad works while you sleep
 - **Full traceability** — every decision logged, every commit attributed
 
