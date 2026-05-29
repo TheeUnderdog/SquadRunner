@@ -72,7 +72,7 @@ Optional routing:
 
 ### SSH Config
 
-Add to `~/.ssh/config`:
+Have your CUA add this to `~/.ssh/config`:
 
 ```
 Host squadrunner
@@ -83,9 +83,9 @@ Host squadrunner
 
 ### Squad CLI Installation
 
-```bash
-ssh squadrunner
+Have your CUA SSH to the VM and run:
 
+```bash
 # Install Node.js
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -98,6 +98,8 @@ gh auth login
 ```
 
 ### Running Squad Watch
+
+Have your CUA start the watch daemon:
 
 ```bash
 # Create tmux session
@@ -112,7 +114,7 @@ tmux attach -t squad
 
 ### Windows Terminal Integration
 
-Create a shortcut profile in Windows Terminal:
+Have your CUA add a shortcut profile to Windows Terminal:
 
 ```json
 {
@@ -135,7 +137,7 @@ Create a shortcut profile in Windows Terminal:
 
 ### Sitrep Command
 
-Send a status request to the running Squad:
+Have your CUA check Squad status:
 
 ```bash
 ssh squadrunner "tmux send-keys -t squad 'sitrep' Enter"
@@ -145,7 +147,7 @@ ssh squadrunner "tmux capture-pane -t squad -p | tail -50"
 
 ### Log File
 
-Enable persistent logging:
+Have your CUA enable persistent logging:
 
 ```bash
 ssh squadrunner "tmux pipe-pane -t squad 'cat >> ~/squad-watch.log'"
