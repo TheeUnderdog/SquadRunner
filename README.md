@@ -72,7 +72,7 @@ Optional routing:
 
 ### SSH Config
 
-> "Set up SSH access to my SquadRunner VM at `<vm-public-ip>` with user `squad`"
+> "I have a VM at `<ip>` — set up SSH so I can connect as `squadrunner`"
 
 ```
 Host squadrunner
@@ -83,7 +83,7 @@ Host squadrunner
 
 ### Squad CLI Installation
 
-> "SSH to squadrunner and install Node.js 20, Squad CLI, and authenticate GitHub"
+> "Install Squad CLI on the VM and authenticate with GitHub"
 
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
@@ -94,7 +94,7 @@ gh auth login
 
 ### Running Squad Watch
 
-> "Start squad watch on `~/repos/your-project` in a tmux session"
+> "Start squad watch on my project repo"
 
 ```bash
 tmux new-session -d -s squad
@@ -103,7 +103,7 @@ tmux send-keys -t squad 'cd ~/repos/your-project && squad watch --execute --inte
 
 ### Windows Terminal Integration
 
-> "Add a SquadRunner profile to Windows Terminal that SSHs into the tmux session"
+> "Add a terminal shortcut to connect to SquadRunner"
 
 ```json
 {
@@ -125,7 +125,7 @@ tmux send-keys -t squad 'cd ~/repos/your-project && squad watch --execute --inte
 
 ### Sitrep Command
 
-> "Check the Squad status on squadrunner"
+> "Check on the Squad"
 
 ```bash
 ssh squadrunner "tmux send-keys -t squad 'sitrep' Enter"
@@ -134,7 +134,7 @@ ssh squadrunner "tmux capture-pane -t squad -p | tail -50"
 
 ### Log File
 
-> "Enable persistent logging for squad watch"
+> "Make sure squad watch logs everything"
 
 ```bash
 ssh squadrunner "tmux pipe-pane -t squad 'cat >> ~/squad-watch.log'"
