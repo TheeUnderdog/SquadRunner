@@ -39,7 +39,7 @@ flowchart TD
     VM --> Output
     
     subgraph Output
-        PR[GitHub PRs]
+        PR[GitHub PRs] --> CI[CI/CD]
     end
 ```
 
