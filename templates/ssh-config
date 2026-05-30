@@ -1,0 +1,32 @@
+# SquadRunner VM SSH Configuration
+# Copy this block to ~/.ssh/config and customize the values
+
+Host squadrunner
+    HostName {{VM_IP_ADDRESS}}
+    User {{USERNAME}}
+    IdentityFile ~/.ssh/squadrunner_ed25519
+    
+    # Connection settings
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    
+    # Forward agent for git operations (optional)
+    ForwardAgent yes
+    
+    # Compression for better performance
+    Compression yes
+
+# Usage:
+#   ssh squadrunner
+#   ssh squadrunner "squad watch"
+#   ssh squadrunner "tmux attach -t squad"
+
+# Placeholders to replace:
+#   {{VM_IP_ADDRESS}} - Your VM's public IP or hostname
+#   {{USERNAME}}      - Your SSH username (usually 'azureuser' for Azure VMs)
+
+# Example with values:
+# Host squadrunner
+#     HostName 20.123.45.67
+#     User azureuser
+#     IdentityFile ~/.ssh/squadrunner_ed25519

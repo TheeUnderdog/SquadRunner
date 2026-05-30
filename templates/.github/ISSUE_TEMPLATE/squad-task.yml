@@ -1,0 +1,91 @@
+name: Squad-Ready Task
+description: Create a task ready for squad pickup
+title: "[Task] "
+labels: ["squad", "priority:P2"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Create a task that's ready for squad agents to pick up and execute.
+
+  - type: input
+    id: title
+    attributes:
+      label: Task Title
+      description: One-line description of the change
+      placeholder: Add health check endpoint
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgent is this task?
+      options:
+        - P1 - High
+        - P2 - Normal
+        - P3 - Low (requires human review)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: assignee
+    attributes:
+      label: Route To
+      description: Which squad member should handle this?
+      options:
+        - lead - Triage/Architecture
+        - backend - Scripts/APIs
+        - frontend - UI/Components
+        - data - Pipelines/Schemas
+        - scribe - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What problem does this solve?
+      placeholder: Users need to know if the service is healthy...
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What's included in this task?
+      placeholder: |
+        - Add GET /health endpoint
+        - Return version and status
+    validations:
+      required: true
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of Scope
+      description: What's explicitly NOT included?
+      placeholder: |
+        - Detailed metrics
+        - Authentication
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Checkboxes for user-visible behavior
+      value: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any other context or references

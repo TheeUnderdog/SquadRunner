@@ -1,0 +1,58 @@
+name: Epic
+description: Create a container issue for tracking related work
+title: "[Epic] "
+labels: ["epic"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Epics are container issues that track related sub-issues. 
+        Epics are NOT picked up directly by squad agents.
+
+  - type: input
+    id: title
+    attributes:
+      label: Epic Title
+      description: Name for this body of work
+      placeholder: User Authentication
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this epic cover?
+      placeholder: Implement complete user authentication flow...
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What's included in this epic?
+      placeholder: |
+        - Login/logout
+        - Token management
+        - Session handling
+
+  - type: textarea
+    id: sub-issues
+    attributes:
+      label: Sub-Issues
+      description: Checklist of sub-issues (will be linked)
+      value: |
+        - [ ] #
+        - [ ] #
+        - [ ] #
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Epic Acceptance
+      description: When is this epic complete?
+      value: |
+        - [ ] All sub-issues closed
+        - [ ] Documentation updated
+        - [ ] Demo completed

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "profiles": [
+    {
+      "name": "SquadRunner",
+      "commandline": "ssh squadrunner",
+      "icon": "🤖",
+      "colorScheme": "One Half Dark",
+      "startingDirectory": "~",
+      "tabTitle": "SquadRunner",
+      "suppressApplicationTitle": true,
+      "scrollbarState": "visible",
+      "padding": "8, 8, 8, 8",
+      "fontFace": "Cascadia Code",
+      "fontSize": 11,
+      "cursorShape": "bar"
+    }
+  ],
+  "schemes": [
+    {
+      "name": "One Half Dark",
+      "background": "#282C34",
+      "foreground": "#DCDFE4",
+      "black": "#282C34",
+      "blue": "#61AFEF",
+      "brightBlack": "#5A6374",
+      "brightBlue": "#61AFEF",
+      "brightCyan": "#56B6C2",
+      "brightGreen": "#98C379",
+      "brightPurple": "#C678DD",
+      "brightRed": "#E06C75",
+      "brightWhite": "#DCDFE4",
+      "brightYellow": "#E5C07B",
+      "cyan": "#56B6C2",
+      "green": "#98C379",
+      "purple": "#C678DD",
+      "red": "#E06C75",
+      "white": "#DCDFE4",
+      "yellow": "#E5C07B",
+      "cursorColor": "#FFFFFF",
+      "selectionBackground": "#FFFFFF"
+    }
+  ],
+  "_comment": "Add this profile to your Windows Terminal settings.json in the 'profiles.list' array. The scheme can be added to 'schemes' if you don't already have One Half Dark."
+}
