@@ -118,10 +118,14 @@ A Linux virtual machine running the GitHub Copilot CLI. Configuration:
 | Network | Public IP with SSH access |
 
 The VM runs:
-- **Node.js 20+**: Runtime for GitHub Copilot CLI
-- **GitHub Copilot CLI (`squad`)**: Watches backlog and dispatches work to agents
-- **GitHub CLI (`gh`)**: Interacts with GitHub API
+- **Node.js 20+**: Runtime for Squad
+- **GitHub Copilot CLI**: GitHub API access and authentication (`gh` command)
+- **Squad**: Watches backlog and dispatches work to agents (`squad` command)
 - **tmux**: Manages persistent sessions
+
+**Prerequisites** (two separate tools):
+- [GitHub Copilot CLI](https://github.com/githubnext/github-copilot-cli)
+- [Squad](https://github.com/anthropics/squad)
 
 ### 3. Ralph Loop
 
@@ -272,4 +276,7 @@ Quick status from the CUA:
 - [CUA Setup Guide](./cua-setup.md)
 - [New Squad Guide](./new-squad-guide.md)
 - [Workflow Guide](./workflow.md)
+
+
+
 
