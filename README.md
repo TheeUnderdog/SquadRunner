@@ -10,7 +10,7 @@ SquadRunner is an architecture pattern for orchestrating multi-agent AI workflow
 flowchart TD
     
     Input --> VM
-    
+    REPLACE_INPUT_SECTION
     subgraph VM[SquadRunner VM]
         RR[ralph-rules.md] --> SW
         WA[working-agreements.md] --> SW
