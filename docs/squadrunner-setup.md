@@ -15,81 +15,90 @@ Before starting, ensure:
 
 ---
 
+## Helper Scripts
+
+The `scripts/` folder contains bash scripts to assist setup:
+
+| Script | Purpose |
+|--------|---------|
+| `provision-vm.sh` | Create Azure VM with correct specs |
+| `configure-ssh.sh` | Generate keys, copy to VM, add SSH config |
+| `install-squad.sh` | Install Node.js, GitHub CLI, tmux on VM |
+| `start-watch.sh` | Start squad watch in tmux session |
+| `setup-squadrunner.sh` | All-in-one setup (provisions + configures everything) |
+
+Your CUA can run these directly or use them as reference.
+
+---
+
 ## Setup Prompts
 
-### 1. Provision the VM
+### Option A: All-in-One Setup
 
 ```
-Create an Azure VM for running SquadRunner:
-- Name: squadrunner
-- Resource group: squadrunner-rg (create if needed)
+Clone https://github.com/TheeUnderdog/SquadRunner.git and run scripts/setup-squadrunner.sh to provision and configure everything.
+Use these settings:
+- VM name: squadrunner
+- Resource group: squadrunner-rg
 - Location: eastus
-- Size: Standard_B2s (2 vCPU, 4GB RAM)
-- Image: Ubuntu 22.04 LTS
-- Auth: SSH key (generate if needed)
-- Open port 22 for SSH
+- Size: Standard_B2s
 
-Save the connection details and test SSH access.
+Report progress and any errors.
 ```
 
-### 2. Configure SSH Access
+### Option B: Step-by-Step Setup
+
+#### 1. Provision the VM
 
 ```
-Set up SSH config for the squadrunner VM:
-- Generate an ed25519 key if I don't have one (~/.ssh/squadrunner_ed25519)
-- Add an SSH config entry named "squadrunner" pointing to the VM
-- Enable agent forwarding and keepalive
-- Test the connection works
+Clone https://github.com/TheeUnderdog/SquadRunner.git and run:
+./scripts/provision-vm.sh --name squadrunner --group squadrunner-rg --location eastus
+
+Save the VM IP address from the output.
 ```
 
-### 3. Install Dependencies
+#### 2. Configure SSH Access
 
 ```
-SSH into squadrunner and install:
-- Node.js 20.x (via NodeSource)
-- GitHub CLI (gh)
-- tmux
-- Git (if not present)
+Run the SSH configuration script with the VM IP:
+./scripts/configure-ssh.sh --ip <VM_IP>
 
-Verify each installation with version commands.
+This generates keys, copies them to the VM, and adds SSH config.
+Test the connection works.
 ```
 
-### 4. Authenticate GitHub
+#### 3. Install Dependencies
+
+```
+Run the install script on the VM:
+ssh squadrunner "bash -s" < ./scripts/install-squad.sh
+
+Or SSH in and run:
+./scripts/install-squad.sh
+
+Verify Node.js 20+, GitHub CLI, and tmux are installed.
+```
+
+#### 4. Authenticate GitHub
 
 ```
 On the squadrunner VM, authenticate GitHub CLI:
-- Run gh auth login
-- Use HTTPS protocol
-- Complete the device flow authentication
-- Verify with gh auth status
+ssh squadrunner "gh auth login"
+
+Complete the device flow authentication.
+Verify with: ssh squadrunner "gh auth status"
 ```
 
-### 5. Clone SquadRunner
+#### 5. Start Squad Watch
 
 ```
-On squadrunner VM:
-- Clone https://github.com/TheeUnderdog/SquadRunner.git to ~/SquadRunner
-- Run npm install in the repo
-- Verify squad CLI is available
-```
+Start squad watch using the script:
+./scripts/start-watch.sh --remote --attach
 
-### 6. Configure tmux
+Or manually:
+ssh squadrunner "tmux new-session -d -s squad && tmux send-keys -t squad 'squad watch' Enter"
 
-```
-Set up tmux on squadrunner:
-- Use Ctrl-a as prefix (not Ctrl-b)
-- Enable mouse support
-- Set scrollback to 50000 lines
-- Create the ~/.tmux.conf file
-```
-
-### 7. Start Squad Watch
-
-```
-On squadrunner, start the squad watcher:
-- Create a tmux session named "squad"
-- Start "squad watch" in that session
-- Verify it's running and watching for issues
+Verify it's running.
 ```
 
 ---
@@ -104,7 +113,6 @@ Verify SquadRunner setup on the squadrunner VM:
 - [ ] Node.js 20+ installed
 - [ ] GitHub CLI installed and authenticated
 - [ ] tmux installed and configured
-- [ ] SquadRunner repo cloned with dependencies
 - [ ] squad watch running in tmux session
 
 Report status of each item.
@@ -122,7 +130,7 @@ Deallocate the squadrunner VM to stop compute charges.
 
 ```
 Start the squadrunner VM and verify squad watch is still running.
-If the tmux session is gone, restart squad watch.
+If the tmux session is gone, run: ./scripts/start-watch.sh --remote
 ```
 
 ### Check Status
