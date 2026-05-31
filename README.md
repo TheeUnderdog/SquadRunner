@@ -11,7 +11,7 @@ flowchart TD
     COS[chief-of-staff.md] --> CUA
     CUA --> GH[GitHub Issues<br/>Backlog]
     CUA <--> H[Human PO & Chief Architect] --> GH[GitHub Issues<br/>Backlog]
-GH --> VM
+    GH --> VM
     
     subgraph VM[SquadRunner VM]
         RR[ralph-rules.md] --> SW
@@ -66,61 +66,19 @@ Agents are project-specific. Define your team in `.squad/team.md`:
 - **Ralph** — polls GitHub, routes issues based on labels
 - **Scribe** — logs session history, commits decisions
 
-## SquadRunner VM Setup
+## Setup
 
-### VM Dependencies
+**SquadRunner is designed to be set up by a Claw-based CUA.**
 
-Install all dependencies on the VM:
+See **[SquadRunner Setup](docs/squadrunner-setup.md)** for the prompts to give your CUA. The guide walks through:
 
-```bash
-# Update system
-sudo apt-get update && sudo apt-get upgrade -y
+1. Provisioning an Azure VM
+2. Configuring SSH access
+3. Installing dependencies (Node.js, GitHub CLI, tmux)
+4. Authenticating with GitHub
+5. Starting squad watch
 
-# Install Node.js 20
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# Install tmux
-sudo apt-get install -y tmux
-
-# Install GitHub Copilot CLI
-npm install -g @githubnext/github-copilot-cli
-
-# Install Squad
-npm install -g @anthropic/squad
-
-# Authenticate with GitHub
-gh auth login
-
-# Verify
-node --version && gh --version && squad --version
-```
-
-### SSH Config
-
-```
-Host squadrunner
-  HostName <vm-public-ip>
-  User squad
-  IdentityFile ~/.ssh/id_rsa
-```
-
-### Running Squad Watch
-
-```bash
-tmux new-session -d -s squad
-tmux send-keys -t squad 'cd ~/repos/your-project && squad watch --execute --interval 5 --verbose' Enter
-```
-
-### Windows Terminal Integration
-
-```json
-{
-  "name": "SquadRunner",
-  "commandline": "ssh squadrunner -t 'tmux attach -t squad || tmux new -s squad'",
-  "icon": "🤖"
-}
-```
+No manual commands required — just copy the prompts and let your CUA execute.
 
 ## The Workflow
 
@@ -169,27 +127,3 @@ MIT
 ---
 
 *This architecture pattern is not documented anywhere else. Novel as of May 2026.*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
