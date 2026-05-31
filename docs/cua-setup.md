@@ -335,3 +335,4 @@ Check skill file locations:
 
 - [Add Squad to New Project](./new-squad-guide.md)
 - [Day-to-Day Workflow](./workflow.md)
+

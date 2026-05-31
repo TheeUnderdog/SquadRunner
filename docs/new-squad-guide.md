@@ -6,7 +6,7 @@ This guide walks through adding a squad to a new project repository.
 
 - Git repository (local clone)
 - GitHub remote configured
-- Squad CLI installed (`squad --version`)
+- GitHub Copilot CLI installed (`squad --version`)
 - SquadRunner VM running (optional, for execution)
 
 ## Quick Start
@@ -215,3 +215,4 @@ git remote add origin https://github.com/owner/repo.git
 - [Day-to-Day Workflow](./workflow.md)
 - [Architecture Overview](./architecture.md)
 - [CUA Setup](./cua-setup.md)
+

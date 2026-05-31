@@ -21,7 +21,7 @@ cd SquadRunner
 # Configure SSH access
 ./scripts/configure-ssh.sh --ip <VM_IP>
 
-# Install Squad CLI on VM
+# Install GitHub Copilot CLI on VM
 ssh squadrunner "bash -s" < ./scripts/install-squad.sh
 
 # Start squad watch
@@ -234,7 +234,7 @@ Or use the start script:
 - [ ] Node.js 20+ installed
 - [ ] GitHub CLI installed and authenticated
 - [ ] tmux installed
-- [ ] Squad CLI installed
+- [ ] GitHub Copilot CLI installed
 - [ ] squad watch running in tmux session
 
 ## Firewall Configuration
@@ -306,7 +306,7 @@ az vm show --resource-group squadrunner-rg --name squadrunner --show-details --q
 nc -zv <VM_IP> 22
 ```
 
-### Squad CLI Not Found
+### GitHub Copilot CLI Not Found
 
 ```bash
 # Check PATH
@@ -340,3 +340,4 @@ gh auth refresh
 - [Configure CUA](./cua-setup.md)
 - [Add Squad to Project](./new-squad-guide.md)
 - [Day-to-Day Workflow](./workflow.md)
+

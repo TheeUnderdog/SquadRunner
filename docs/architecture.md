@@ -1,6 +1,6 @@
 # SquadRunner Architecture
 
-This document describes the SquadRunner system architecture: how a Claw-based CUA (Computer Use Agent) connects to GitHub through a Linux VM running the Squad CLI.
+This document describes the SquadRunner system architecture: how a Claw-based CUA (Computer Use Agent) connects to GitHub through a Linux VM running the GitHub Copilot CLI.
 
 ## System Overview
 
@@ -18,7 +18,7 @@ flowchart TB
     end
 
     subgraph VM["SquadRunner VM"]
-        CLI["Squad CLI"]
+        CLI["GitHub Copilot CLI"]
         RALPH["Ralph Loop"]
         AGENTS["Squad Agents"]
     end
@@ -107,7 +107,7 @@ The CUA operates from the developer's machine and has access to:
 
 ### 2. SquadRunner VM
 
-A Linux virtual machine running the Squad CLI. Configuration:
+A Linux virtual machine running the GitHub Copilot CLI. Configuration:
 
 | Spec | Value |
 |------|-------|
@@ -118,9 +118,9 @@ A Linux virtual machine running the Squad CLI. Configuration:
 | Network | Public IP with SSH access |
 
 The VM runs:
-- **Node.js 20+**: Runtime for Squad CLI
-- **Squad CLI**: Watches backlog and executes work
-- **GitHub CLI**: Interacts with GitHub API
+- **Node.js 20+**: Runtime for GitHub Copilot CLI
+- **GitHub Copilot CLI (`squad`)**: Watches backlog and dispatches work to agents
+- **GitHub CLI (`gh`)**: Interacts with GitHub API
 - **tmux**: Manages persistent sessions
 
 ### 3. Ralph Loop
@@ -239,7 +239,7 @@ Costs vary by region and usage. Shut down VM when not in use to save money.
 | Failure | Detection | Recovery |
 |---------|-----------|----------|
 | VM down | SSH connection fails | Restart VM via Azure portal |
-| Squad CLI crash | tmux session empty | Restart with `start-watch.sh` |
+| GitHub Copilot CLI crash | tmux session empty | Restart with `start-watch.sh` |
 | GitHub rate limit | API errors in logs | Wait for reset (1 hour) |
 | Network issues | Polling timeouts | Auto-retry with backoff |
 
@@ -251,7 +251,7 @@ Costs vary by region and usage. Shut down VM when not in use to save money.
 # Check VM is reachable
 ssh squadrunner "echo ok"
 
-# Check Squad CLI is running
+# Check GitHub Copilot CLI is running
 ssh squadrunner "tmux has-session -t squad && echo running"
 
 # Check recent activity
@@ -272,3 +272,4 @@ Quick status from the CUA:
 - [CUA Setup Guide](./cua-setup.md)
 - [New Squad Guide](./new-squad-guide.md)
 - [Workflow Guide](./workflow.md)
+

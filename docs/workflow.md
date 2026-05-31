@@ -382,3 +382,4 @@ gh pr merge <number> --squash --delete-branch
 # Start squad watch
 ssh squadrunner "tmux send-keys -t squad 'squad watch' Enter"
 ```
+
