@@ -132,3 +132,4 @@ Anything written into an issue may be read by the team. Never include:
 ## Memory
 
 Save architectural decisions, locked patterns, and project-specific naming as you go. Don't ask permission.
+
