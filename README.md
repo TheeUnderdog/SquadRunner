@@ -7,53 +7,40 @@ SquadRunner is an architecture pattern for orchestrating multi-agent AI workflow
 ## How It Works
 
 ```mermaid
-flowchart TB
-    subgraph Skills["Skills & Configuration"]
-        COS[/"Chief of Staff<br/>Skill"/]
-        WQ[/"Work Queue<br/>Rules"/]
-        WR[/"Working<br/>Agreements"/]
+flowchart TD
+    subgraph Input
+        direction LR
+        COS[Chief of Staff Skill] --> CUA
+        H[Human PO] --> CUA[Claw-based CUA<br/>Chief of Staff] --> GH[GitHub Issues<br/>Backlog]
     end
-
-    subgraph Local["Developer Machine"]
-        PO["Human PO"]
-        CUA["Claw-based CUA"]
+    
+    Input --> VM
+    
+    subgraph VM[SquadRunner VM]
+        WQ[Work Queue Rules] --> SW
+        WR[Working Agreements] --> SW
+        subgraph SW[squad watch --execute --interval 5 --verbose]
+            direction LR
+            R[Ralph] --> SL[Squad Leader]
+            SL --> M1[Member 1]
+            SL --> M2[Member 2]
+            SL --> MN[Member N]
+            SL --> SC[Scribe]
+        end
     end
-
-    subgraph Cloud["SquadRunner VM"]
-        RALPH["Ralph<br/>Dispatcher"]
-        SQUAD["Squad<br/>Agents"]
+    
+    VM --> Bottom
+    
+    subgraph Bottom[ ]
+        direction LR
+        subgraph Output
+            PR[GitHub PRs]
+        end
+        Output --> Runner
+        subgraph Runner[GitHub Runner - optional]
+            CI[CI/CD]
+        end
     end
-
-    subgraph GitHub["GitHub"]
-        ISSUES["Issues<br/>Backlog"]
-        PRS["Pull<br/>Requests"]
-        REPO["Repository"]
-    end
-
-    %% Skill inputs (dotted)
-    COS -.-> CUA
-    WQ -.-> RALPH
-    WR -.-> SQUAD
-
-    %% Main flow (solid)
-    PO --> CUA
-    CUA --> ISSUES
-    RALPH --> ISSUES
-    RALPH --> SQUAD
-    SQUAD --> PRS
-    PRS --> REPO
-    CUA --> PRS
-
-    %% Styling
-    classDef skill fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#01579b
-    classDef local fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#e65100
-    classDef cloud fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20
-    classDef github fill:#fce4ec,stroke:#e91e63,stroke-width:2px,color:#880e4f
-
-    class COS,WQ,WR skill
-    class PO,CUA local
-    class RALPH,SQUAD cloud
-    class ISSUES,PRS,REPO github
 ```
 
 ## Prerequisites
