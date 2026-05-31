@@ -24,13 +24,13 @@ This folder contains templates for setting up a squad in a new project repositor
 
 ## Usage
 
-### Option 1: Use add-squad.sh (Recommended)
+### Option 1: Use squad init (Recommended)
 
 ```bash
-./scripts/add-squad.sh
+squad init
 ```
 
-The script will prompt for your project details and copy these templates.
+This creates the `.squad/` folder with all necessary files.
 
 ### Option 2: Manual Setup
 

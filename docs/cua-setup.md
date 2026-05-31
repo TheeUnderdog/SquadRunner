@@ -294,7 +294,7 @@ CUA will:
 "I don't see a .squad folder in this repo"
 ```
 
-Solution: Run `add-squad.sh` to set up squad configuration.
+Solution: Run `squad init` to set up squad configuration.
 
 ### CUA Can't Connect to VM
 
