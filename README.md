@@ -12,7 +12,14 @@ flowchart TD
     H[Human PO & Chief Architect] --> CUA[Claw-based CUA<br/>Chief of Staff]
     CUA --> GH[GitHub Issues<br/>Backlog]
     
+<<<<<<< HEAD
     GH --> VM
+=======
+    COS[chief-of-staff.md] --> CUA
+    H[Human PO & Chief Architect] --> CUA[Claw-based CUA<br/>Chief of Staff]
+    CUA --> GH[GitHub Issues<br/>Backlog]
+    GH --> VM
+>>>>>>> f5dfe3f054dec925d0fdd18e7cdb5592848f76ed
     
     subgraph VM[SquadRunner VM]
         RR[ralph-rules.md] --> SW
@@ -170,6 +177,7 @@ MIT
 ---
 
 *This architecture pattern is not documented anywhere else. Novel as of May 2026.*
+
 
 
 
