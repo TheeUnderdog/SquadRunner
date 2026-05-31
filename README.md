@@ -18,8 +18,9 @@ flowchart TD
     Input --> VM
     
     subgraph VM[SquadRunner VM]
-        WQ[Work Queue Rules] --> SW
-        WR[Working Agreements] --> SW
+        RR[ralph-rules.md] --> SW
+        WA[working-agreements.md] --> SW
+        DW[dev-workflow.md] --> SW
         subgraph SW[squad watch --execute --interval 5 --verbose]
             direction LR
             R[Ralph] --> SL[Squad Leader]
@@ -172,4 +173,5 @@ MIT
 ---
 
 *This architecture pattern is not documented anywhere else. Novel as of May 2026.*
+
 
