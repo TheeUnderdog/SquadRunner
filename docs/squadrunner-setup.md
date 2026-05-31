@@ -1,94 +1,76 @@
 # SquadRunner Setup
 
-**Prompts for setting up SquadRunner with a Claw-based CUA**
+Prompts for setting up SquadRunner with a Claw-based CUA.
 
-Helper scripts are available in `scripts/` — your CUA can use them directly.
+Helper scripts available in `scripts/`.
 
 ---
 
-## Setup Prompts
-
-### 1. Provision the VM
+## 1. Provision an Azure VM
 
 ```
-Create an Azure VM for running SquadRunner:
+Create an Azure VM for SquadRunner:
 - Name: squadrunner
 - Resource group: squadrunner-rg
 - Location: eastus
 - Size: Standard_B2s (2 vCPU, 4GB RAM)
 - Image: Ubuntu 22.04 LTS
-- Open port 22 for SSH
+- Open port 22
 
-Save the connection details and test SSH access.
+Save connection details.
 ```
 
-### 2. Configure SSH Access
+## 2. Configure SSH access
 
 ```
-Set up SSH config for the squadrunner VM:
-- Generate an ed25519 key if needed
-- Add an SSH config entry named "squadrunner"
-- Enable agent forwarding and keepalive
-- Test the connection
+Set up SSH for squadrunner VM:
+- Generate ed25519 key if needed
+- Add SSH config entry "squadrunner"
+- Test connection
 ```
 
-### 3. Install Dependencies
+## 3. Install dependencies (Node.js, GitHub CLI, tmux)
 
 ```
-SSH into squadrunner and install:
+On squadrunner, install:
 - Node.js 20.x
-- GitHub CLI (gh)
+- GitHub CLI
 - tmux
 
-Verify each with version commands.
+Verify with version commands.
 ```
 
-### 4. Authenticate GitHub
+## 4. Authenticate with GitHub
 
 ```
 On squadrunner, run gh auth login.
-Complete authentication and verify with gh auth status.
+Verify with gh auth status.
 ```
 
-### 5. Start Squad Watch
+## 5. Start squad watch
 
 ```
-On squadrunner, start squad watch in a tmux session named "squad".
+On squadrunner, start squad watch in tmux session "squad".
 Verify it's running.
 ```
 
 ---
 
-## Verification
+## Verify
 
 ```
-Verify SquadRunner setup:
-- VM accessible via SSH
-- Node.js 20+ installed
-- GitHub CLI authenticated
-- tmux installed
-- squad watch running
-
-Report status.
+Verify SquadRunner: VM accessible, Node 20+, gh authenticated, tmux installed, squad watch running.
 ```
 
----
-
-## Management
+## Manage
 
 ```
-Deallocate squadrunner VM to save costs.
+Deallocate squadrunner VM.
 ```
 
 ```
 Start squadrunner VM and restart squad watch if needed.
 ```
-
-```
-Check squadrunner status: VM running? Squad watch active?
-```
-
----
 
 ## Cost
 
