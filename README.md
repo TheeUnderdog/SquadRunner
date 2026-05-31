@@ -10,7 +10,7 @@ SquadRunner is an architecture pattern for orchestrating multi-agent AI workflow
 flowchart TD
     subgraph Input
         H[Human PO & Chief Architect]
-        COS[Chief of Staff Skill]
+        COS[chief-of-staff.md]
         CUA[Claw-based CUA<br/>Chief of Staff]
         GH[GitHub Issues<br/>Backlog]
         
@@ -178,6 +178,7 @@ MIT
 ---
 
 *This architecture pattern is not documented anywhere else. Novel as of May 2026.*
+
 
 
 
