@@ -2,7 +2,7 @@
 
 **Cloud-based agentic development with Squad and GitHub**
 
-SquadRunner is an architecture pattern for orchestrating multi-agent AI workflows. It combines a local CUA (Computer Use Agent), Squad, a persistent cloud VM, and GitHub to create an autonomous development pipeline.
+SquadRunner is an architectural pattern for orchestrating multi-agent developer workflows using persistent Squads and a Computer Use Agent.
 
 ## How It Works
 
@@ -170,6 +170,7 @@ MIT
 ---
 
 *This architecture pattern is not documented anywhere else. Novel as of May 2026.*
+
 
 
 
