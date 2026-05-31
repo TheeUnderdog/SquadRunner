@@ -4,51 +4,87 @@ This document describes the SquadRunner system architecture: how a Claw-based CU
 
 ## System Overview
 
+```mermaid
+flowchart TB
+    subgraph Skills["Skills & Rules"]
+        COS["Chief of Staff<br/>Skill"]
+        WA["Working<br/>Agreements"]
+        RR["Ralph Rules"]
+        DW["Dev Workflow"]
+    end
+
+    subgraph Local["Developer Machine"]
+        CUA["Claw-based CUA"]
+    end
+
+    subgraph VM["SquadRunner VM"]
+        CLI["Squad CLI"]
+        RALPH["Ralph Loop"]
+        AGENTS["Squad Agents"]
+    end
+
+    subgraph GH["GitHub"]
+        REPO["Repository"]
+        ISSUES["Issues<br/>Backlog"]
+        PRS["Pull Requests"]
+        SQUAD[".squad/<br/>Configuration"]
+    end
+
+    %% Skill inputs
+    COS -.->|"configures"| CUA
+    WA -.->|"standards"| AGENTS
+    RR -.->|"pickup rules"| RALPH
+    DW -.->|"workflow"| AGENTS
+
+    %% Main flow
+    CUA -->|"SSH"| CLI
+    CUA -->|"gh CLI"| ISSUES
+    CLI --> RALPH
+    RALPH -->|"polls"| ISSUES
+    RALPH --> AGENTS
+    AGENTS -->|"commits"| PRS
+    PRS -->|"merges to"| REPO
+    SQUAD -.->|"defines"| AGENTS
+
+    %% Styling
+    classDef skill fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    classDef machine fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    classDef vm fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    classDef github fill:#fce4ec,stroke:#e91e63,stroke-width:2px
+
+    class COS,WA,RR,DW skill
+    class CUA machine
+    class CLI,RALPH,AGENTS vm
+    class REPO,ISSUES,PRS,SQUAD github
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                           Developer Machine                              │
-│  ┌─────────────────────┐                                                │
-│  │   Claw-based CUA    │                                                │
-│  │                     │                                                │
-│  │  ┌───────────────┐  │     SSH         ┌─────────────────────────┐   │
-│  │  │ Chief of Staff│  │─────────────────│     SquadRunner VM      │   │
-│  │  │    Skill      │  │                 │                         │   │
-│  │  └───────────────┘  │                 │  ┌───────────────────┐  │   │
-│  │                     │                 │  │    Squad CLI      │  │   │
-│  │  ┌───────────────┐  │                 │  │                   │  │   │
-│  │  │ Working       │  │                 │  │  ┌─────────────┐  │  │   │
-│  │  │ Agreements    │  │                 │  │  │ squad watch │  │  │   │
-│  │  └───────────────┘  │                 │  │  └─────────────┘  │  │   │
-│  │                     │                 │  │         │         │  │   │
-│  │  ┌───────────────┐  │                 │  │         ▼         │  │   │
-│  │  │ Ralph Rules   │  │                 │  │  ┌─────────────┐  │  │   │
-│  │  └───────────────┘  │                 │  │  │   GitHub    │──┼──┼───┼─┐
-│  │                     │                 │  │  │     API     │  │  │   │ │
-│  │  ┌───────────────┐  │                 │  │  └─────────────┘  │  │   │ │
-│  │  │ Dev Workflow  │  │                 │  └───────────────────┘  │   │ │
-│  │  └───────────────┘  │                 │                         │   │ │
-│  └─────────────────────┘                 └─────────────────────────┘   │ │
-└─────────────────────────────────────────────────────────────────────────┘ │
-                                                                             │
-    ┌────────────────────────────────────────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                              GitHub                                      │
-│                                                                          │
-│  ┌─────────────────────────────────────────────────────────────────┐    │
-│  │                        Repository                                │    │
-│  │                                                                  │    │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │    │
-│  │  │   Issues    │  │    PRs      │  │       .squad/           │  │    │
-│  │  │             │  │             │  │                         │  │    │
-│  │  │ squad:danny │  │ CI Pipeline │  │  team.md                │  │    │
-│  │  │ priority:P1 │  │ Auto-merge  │  │  routing.md             │  │    │
-│  │  └─────────────┘  └─────────────┘  │  agents/*/charter.md    │  │    │
-│  │                                    └─────────────────────────┘  │    │
-│  └─────────────────────────────────────────────────────────────────┘    │
-│                                                                          │
-└─────────────────────────────────────────────────────────────────────────┘
+
+## Data Flow
+
+```mermaid
+flowchart LR
+    subgraph Intake["Engagement Intake"]
+        BRIEF["Brief"] --> CUA["CUA"]
+        CUA -->|"creates"| ISSUES["Issues"]
+    end
+
+    subgraph Execution["Squad Execution"]
+        ISSUES -->|"labeled"| RALPH["Ralph"]
+        RALPH -->|"assigns"| AGENT["Agent"]
+        AGENT -->|"works"| PR["PR"]
+    end
+
+    subgraph Delivery["Delivery"]
+        PR -->|"reviewed"| CUA2["CUA"]
+        CUA2 -->|"merges"| DONE["Done"]
+    end
+
+    classDef intake fill:#e3f2fd,stroke:#1976d2
+    classDef exec fill:#e8f5e9,stroke:#388e3c
+    classDef deliver fill:#fff8e1,stroke:#fbc02d
+
+    class BRIEF,CUA,ISSUES intake
+    class RALPH,AGENT,PR exec
+    class CUA2,DONE deliver
 ```
 
 ## Components
@@ -66,6 +102,8 @@ The CUA operates from the developer's machine and has access to:
 - Local squad skills (working agreements, rules)
 - SSH connection to SquadRunner VM
 - Direct GitHub access via `gh` CLI
+
+**Input**: Chief of Staff Skill defines the PO/CUA relationship and backlog ownership.
 
 ### 2. SquadRunner VM
 
@@ -85,23 +123,39 @@ The VM runs:
 - **GitHub CLI**: Interacts with GitHub API
 - **tmux**: Manages persistent sessions
 
-### 3. Squad CLI
+### 3. Ralph Loop
 
-The execution engine. Core commands:
+The dispatcher that picks up work from the backlog.
 
-| Command | Function |
-|---------|----------|
-| `squad watch` | Poll backlog for ready issues |
-| `squad status` | Show current state |
+**Input**: Ralph Rules skill defines:
+- Label-based routing (`squad:<member>`)
+- Priority ordering (P0 > P1 > P2)
+- Skip conditions (P3, blocked, epic)
+- Pickup algorithm
 
-The `watch` command:
-1. Polls GitHub for issues with `squad` + `squad:<member>` labels
-2. Picks highest priority issue
-3. Executes the work (via agent logic)
-4. Opens PR and closes issue
-5. Repeats
+```mermaid
+flowchart TD
+    POLL["Poll Backlog"] --> FILTER["Filter Ready Issues"]
+    FILTER --> SORT["Sort by Priority"]
+    SORT --> PICK["Pick Highest"]
+    PICK --> EXEC["Execute Work"]
+    EXEC --> PR["Open PR"]
+    PR --> POLL
 
-### 4. GitHub Repository
+    classDef loop fill:#e8f5e9,stroke:#4caf50
+    class POLL,FILTER,SORT,PICK,EXEC,PR loop
+```
+
+### 4. Squad Agents
+
+The workers that execute issues.
+
+**Inputs**:
+- Working Agreements skill defines DoR, DoD, ADR conventions
+- Dev Workflow skill defines branch/commit/PR flow
+- Agent charters in `.squad/agents/*/charter.md`
+
+### 5. GitHub Repository
 
 The system of record. Contains:
 
@@ -112,56 +166,15 @@ The system of record. Contains:
   - `routing.md`: Label routing rules
   - `agents/*/charter.md`: Agent-specific instructions
 
-## Data Flow
-
-### Issue Lifecycle
-
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Created   │────▶│    Ready    │────▶│  Picked Up  │
-│  (by CUA)   │     │  (labeled)  │     │ (by Squad)  │
-└─────────────┘     └─────────────┘     └─────────────┘
-                                              │
-                                              ▼
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Closed    │◀────│   Merged    │◀────│  PR Open    │
-│             │     │             │     │             │
-└─────────────┘     └─────────────┘     └─────────────┘
-```
-
-### Label Flow
-
-```
-Issue Created (no labels)
-         │
-         ▼
-CUA adds: squad + squad:<member> + priority:P1
-         │
-         ▼
-Squad CLI detects via polling
-         │
-         ▼
-Agent picks up, adds: in-progress
-         │
-         ▼
-Work complete, opens PR
-         │
-         ▼
-CI passes, CUA merges
-         │
-         ▼
-Issue auto-closed (via "Closes #N")
-```
-
 ## Security Model
 
 ### Authentication
 
 | Component | Auth Method |
 |-----------|-------------|
-| CUA → VM | SSH key (ed25519) |
-| VM → GitHub | Personal Access Token or GitHub App |
-| CUA → GitHub | `gh auth login` |
+| CUA to VM | SSH key (ed25519) |
+| VM to GitHub | Personal Access Token or GitHub App |
+| CUA to GitHub | `gh auth login` |
 
 ### Access Control
 
@@ -180,33 +193,35 @@ Issue auto-closed (via "Closes #N")
 
 ## Deployment Topology
 
-### Single VM (Default)
+```mermaid
+flowchart LR
+    subgraph Devs["Developers"]
+        D1["Dev 1"]
+        D2["Dev 2"]
+    end
 
-```
-┌──────────────┐     ┌──────────────┐
-│   Dev 1      │────▶│              │
-└──────────────┘     │              │
-                     │  SquadRunner │────▶ GitHub
-┌──────────────┐     │     VM       │
-│   Dev 2      │────▶│              │
-└──────────────┘     └──────────────┘
+    subgraph Infra["Infrastructure"]
+        VM["SquadRunner VM"]
+    end
+
+    subgraph GitHub["GitHub"]
+        R1["Repo A"]
+        R2["Repo B"]
+    end
+
+    D1 & D2 -->|SSH| VM
+    VM -->|watches| R1 & R2
+
+    classDef dev fill:#e3f2fd,stroke:#1976d2
+    classDef infra fill:#e8f5e9,stroke:#388e3c
+    classDef gh fill:#fce4ec,stroke:#e91e63
+
+    class D1,D2 dev
+    class VM infra
+    class R1,R2 gh
 ```
 
 Multiple developers share one VM. Each dev has SSH access.
-
-### Multi-VM (Isolated)
-
-```
-┌──────────────┐     ┌──────────────┐
-│   Dev 1      │────▶│   VM 1       │────▶ Repo A
-└──────────────┘     └──────────────┘
-
-┌──────────────┐     ┌──────────────┐
-│   Dev 2      │────▶│   VM 2       │────▶ Repo B
-└──────────────┘     └──────────────┘
-```
-
-Separate VMs per project for isolation.
 
 ## Cost Estimate
 
