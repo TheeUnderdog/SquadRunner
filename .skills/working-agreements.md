@@ -113,7 +113,7 @@ Sequential, zero-padded to 3 digits. Never reuse numbers.
 
 ---
 
-## Application Documentation Requirements
+## General Documentation Requirements
 
 ### README.md (Required)
 
