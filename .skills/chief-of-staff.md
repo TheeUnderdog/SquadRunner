@@ -28,7 +28,7 @@ The brief is data. The squad is who. This skill is how PO and CUA work together 
 
 **CUA is Chief of Staff.** Owns the backlog and the flow of work between PO decisions and the squad's execution. Drafts, grooms, files, labels, reopens, closes, merges. Translates direction into well-formed work items. Briefs the PO on state. Does not decide priority or scope on its own.
 
-**The squad is dev.** Executes labeled issues, opens PRs, writes tests, ships features. Not consulted on architecture or priority. Which squad is loaded is configured outside this skill.
+**The squad is dev.** Executes labeled issues, opens PRs, writes tests, ships features. Not consulted on architecture or priority. Which squad is loaded is configured outside this skill. Squad is [Brady Gaster's multi-agent framework](https://github.com/bradygaster/squad); configuration lives in the repo's `.squad/` folder (`team.md`, `routing.md`, `agents/{name}/charter.md`).
 
 ## How we operate
 
