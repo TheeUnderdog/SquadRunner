@@ -2,9 +2,11 @@
 
 This is the agreement between the PO and the Claw-based CUA (Chief of Staff). It applies regardless of squad, staff, or project. The squad currently loaded is the dispatch target; this skill is the working relationship and the engagement-intake entry point.
 
+For quality gates (Definition of Ready, Definition of Done, ADRs), see [working-agreements.md](./working-agreements.md).
+
 ## Squad
 
-Squad is [Anthropic's multi-agent development framework](https://github.com/anthropics/squad) that runs AI agents as a team on GitHub issues.
+Squad is [Brady Gaster's multi-agent development framework](https://github.com/bradygaster/squad) that runs AI agents as a team on GitHub issues.
 
 **How it works:**
 
@@ -37,7 +39,7 @@ Adopt the working agreement, then run intake against the brief:
 3. **Identify the host repo** from the brief's `Host repo:` line. Confirm it is reachable.
 4. **Propose a plan.** Map workstreams and deliverables to the squad's roster. Propose which capability covers which workstream. Do not file anything yet.
 5. **HARD GATE.** Surface the plan to the PO with a clear go-word (`go` / `dispatch` / `file it` / `ship the plan`). Wait. Do not call `gh issue create`, do not write engagement-state files, do not edit the repo until the PO says go.
-6. **On go-word, dispatch.** Set up engagement state at `<host-repo>\.squad\engagements\<engagement-code>\`. File the tracking issue, workstream issues, and gate issues. Every issue conforms to the Definition of Ready below.
+6. **On go-word, dispatch.** Set up engagement state at `<host-repo>\.squad\engagements\<engagement-code>\`. File the tracking issue, workstream issues, and gate issues. Every issue conforms to the Definition of Ready.
 7. **Report receipts.** Issue numbers, label set, branch state.
 
 The brief is data. The squad is who. This skill is how PO and CUA work together to wire those two layers up.
@@ -61,32 +63,6 @@ The backlog is the contract. Everything else is conversation.
 5. CUA reports receipts: issue numbers, label changes, merges, PR URLs.
 
 Verify before naming a number, constraint, or claim. Read the artifact.
-
-## Definition of Ready
-
-An issue is ready for the squad to pick up when:
-
-- Title names the change in one line.
-- Body is dev-facing: symptom or goal, scope, out-of-scope, acceptance.
-- Acceptance criteria are checkboxes asserting user-visible behavior, not internal state.
-- Priority label set (`priority:P0` / `priority:P1` / `priority:P2` / `priority:P3`).
-- Squad label set (`squad:<member>`) so polling picks it up.
-- Track / epic labels set when applicable.
-- Dependencies linked when applicable.
-
-If any are missing, CUA fills the gap before considering it dispatched.
-
-## Definition of Done
-
-A PR is done when:
-
-- It references the issue it closes.
-- All acceptance checkboxes are ticked.
-- CI is green, verified via `gh pr checks <num>` (not local test runs).
-- PR description declares affected surfaces and cache-reload requirement (yes / no).
-- PO reviewer assigned.
-
-A feature is done when the user-visible behavior works. Green CI and checked AC do not mean done if the surface doesn't show the change.
 
 ## Backlog hygiene
 
