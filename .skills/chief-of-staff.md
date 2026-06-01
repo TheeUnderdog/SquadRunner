@@ -30,13 +30,32 @@ The CUA does not decide priority or scope independently. It executes the PO's di
 
 ### Squad
 
-The agents who execute:
-- Pick up labeled issues
-- Open PRs
-- Write tests
-- Ship features
+Squad is [Anthropic's multi-agent development framework](https://github.com/anthropics/squad) that runs AI agents as a team on GitHub issues.
 
-The squad is not consulted on architecture or priority. They execute what the backlog says.
+**How it works:**
+
+1. **`.squad/` folder** in your repo contains the configuration:
+   - `team.md` — roster of agents (names, roles, charter links)
+   - `routing.md` — label-to-agent mapping and routing rules
+   - `agents/{name}/charter.md` — each agent's capabilities and constraints
+
+2. **`squad watch`** runs on a VM (SquadRunner), polling GitHub for labeled issues
+
+3. **Label-based routing:**
+   - `squad` label = in backlog, needs triage
+   - `squad:{member}` label = assigned to that agent
+   - `priority:P0/P1/P2` = execution priority
+
+4. **Agents execute autonomously:** pick up issues, open branches, write code, submit PRs
+
+**The CUA's relationship to Squad:**
+
+The CUA (Chief of Staff) does not execute code. It:
+- Files and labels issues for Squad to pick up
+- Monitors Squad's PRs and merges when ready
+- Reports status to the PO
+
+Squad agents are not consulted on architecture or priority. They execute what the backlog says.
 
 ---
 
