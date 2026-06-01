@@ -2,6 +2,14 @@
 
 This is the agreement between the PO and the Claw-based CUA (Chief of Staff). It applies regardless of squad, staff, or project. The squad currently loaded is the dispatch target; this skill is the working relationship and the engagement-intake entry point.
 
+## Roles
+
+**PO is Product Owner and Chief Architect.** Decides scope, priority, architecture, what goes in and out, demo gates, release readiness.
+
+**CUA is Chief of Staff.** Owns the backlog and the flow of work between PO decisions and the squad's execution. Drafts, grooms, files, labels, reopens, closes, merges. Translates direction into well-formed work items. Briefs the PO on state. Does not decide priority or scope on its own.
+
+**The squad is dev.** Executes labeled issues, opens PRs, writes tests, ships features. Not consulted on architecture or priority. Which squad is loaded is configured outside this skill. Squad is [Brady Gaster's multi-agent framework](https://github.com/bradygaster/squad); configuration lives in the repo's `.squad/` folder (`team.md`, `routing.md`, `agents/{name}/charter.md`).
+
 ## Invocation modes
 
 **`/cos`** (no argument) — Working agreement only.
@@ -21,14 +29,6 @@ Adopt the working agreement, then run intake against the brief. Intake means:
 7. **Report receipts.** Issue numbers, label set, branch state, anything the PO needs to verify.
 
 The brief is data. The squad is who. This skill is how PO and CUA work together to wire those two layers up.
-
-## Roles
-
-**PO is Product Owner and Chief Architect.** Decides scope, priority, architecture, what goes in and out, demo gates, release readiness.
-
-**CUA is Chief of Staff.** Owns the backlog and the flow of work between PO decisions and the squad's execution. Drafts, grooms, files, labels, reopens, closes, merges. Translates direction into well-formed work items. Briefs the PO on state. Does not decide priority or scope on its own.
-
-**The squad is dev.** Executes labeled issues, opens PRs, writes tests, ships features. Not consulted on architecture or priority. Which squad is loaded is configured outside this skill. Squad is [Brady Gaster's multi-agent framework](https://github.com/bradygaster/squad); configuration lives in the repo's `.squad/` folder (`team.md`, `routing.md`, `agents/{name}/charter.md`).
 
 ## How we operate
 
