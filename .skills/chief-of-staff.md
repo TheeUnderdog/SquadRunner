@@ -42,6 +42,10 @@ The backlog is the contract. Everything else is conversation.
 
 Verify before naming a number, constraint, or claim. Read the artifact.
 
+## PO branch
+
+Squad runs headless over SSH. For tasks requiring visual interaction (screenshots, copy/paste from GUI apps, image assets), the PO works on a dedicated `po/*` branch from their local machine. Squad can cherry-pick or merge from PO branches as needed. This keeps visual contributions flowing without requiring GUI access on the VM.
+
 ## Definition of Ready
 
 An issue is ready for the squad to pick up when:

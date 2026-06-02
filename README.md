@@ -88,6 +88,19 @@ No manual commands required — just copy the prompts and let your CUA execute.
 4. **Review** — PRs opened as drafts, human reviews via sitrep command
 5. **Merge** — Approved PRs merge, issues close, cycle repeats
 
+## PO Branch
+
+Squad runs headless over SSH. For tasks requiring visual interaction (screenshots, copy/paste from GUI apps, image assets), the PO works on a dedicated branch:
+
+```bash
+git checkout -b po/assets
+# paste screenshots, add images, visual content
+git add . && git commit -m "add screenshots for issue #42"
+git push origin po/assets
+```
+
+Squad can then cherry-pick or merge from `po/*` branches as needed. This keeps the PO's visual contributions flowing into the repo without requiring GUI access on the VM.
+
 ## Monitoring
 
 ### Sitrep Command
