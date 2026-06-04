@@ -1,6 +1,6 @@
 # SquadRunner
 
-**Cloud-based agentic development with Squad and GitHub**
+**Cloud-based agentic development with Squad and GitHub Copilot CLI**
 
 SquadRunner is an architectural pattern for orchestrating multi-agent developer workflows using persistent Squads and a Computer Use Agent.
 
