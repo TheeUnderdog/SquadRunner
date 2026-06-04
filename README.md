@@ -78,7 +78,7 @@ See **[SquadRunner Setup](docs/squadrunner-setup.md)** for the prompts to give y
 4. Authenticating with GitHub
 5. Starting squad watch
 
-No manual commands required — just copy the prompts and let your CUA execute.
+No scripts or manual commands required — just chat with your CUA and let it execute.
 
 ## The Workflow
 
