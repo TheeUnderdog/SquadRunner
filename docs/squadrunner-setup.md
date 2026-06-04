@@ -2,7 +2,7 @@
 
 Prompts for setting up SquadRunner with a Claw-based CUA.
 
-Helper scripts available in `scripts/`.
+Helper scripts not available.  Just have the conversation.  
 
 ---
 
