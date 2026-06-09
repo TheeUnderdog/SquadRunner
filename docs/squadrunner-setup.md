@@ -57,8 +57,6 @@ Deploy Azure Bastion for SquadRunner so I can SSH over 443 instead of 22:
 - Bastion subnet: create AzureBastionSubnet (/26) in that VNet if missing
 - Bastion host: squadrunner-bastion, SKU Standard, native client tunneling enabled
 - Public IP:    squadrunner-bastion-pip, Standard SKU, Static, same region
-
-Then detach the public IP from the squadrunner NIC and give me a launcher script that tunnels through it
 ```
 
 ## 6. Start squad watch
