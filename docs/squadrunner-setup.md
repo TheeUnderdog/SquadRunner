@@ -47,7 +47,21 @@ On squadrunner, run gh auth login.
 Verify with gh auth status.
 ```
 
-## 5. Start squad watch
+## 5. Install and configure Bastion
+
+```
+Deploy Azure Bastion for SquadRunner so I can SSH over 443 instead of 22:
+
+- VM:           squadrunner (resource group squadrunner-rg, region <region>)
+- VNet:         the VNet that already hosts squadrunner
+- Bastion subnet: create AzureBastionSubnet (/26) in that VNet if missing
+- Bastion host: squadrunner-bastion, SKU Standard, native client tunneling enabled
+- Public IP:    squadrunner-bastion-pip, Standard SKU, Static, same region
+
+Then detach the public IP from the squadrunner NIC and give me a launcher script that tunnels through it
+```
+
+## 6. Start squad watch
 
 ```
 On squadrunner, start squad watch in tmux session "squad".
