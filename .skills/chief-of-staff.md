@@ -12,11 +12,15 @@ This is the agreement between the PO and the Claw-based CUA (Chief of Staff). It
 
 ## Invocation modes
 
-**`/cos`** (no argument) — Working agreement only.
+**`/cos`** (no argument) - Working agreement only.
 
 Adopt this agreement as the operating frame for the rest of the session. If a project context is already in play (a squad already loaded, a repo opened, an engagement running), keep operating against it under this agreement. Otherwise enter standby and ask the PO which project to bind to.
 
-**`/cos <absolute-path-to-project-brief.md>`** — Working agreement + engagement intake.
+**`/cos <absolute-path-to-project-code-files>`** - Working agreement + existing project.  
+
+Adopt the working agreement, then review the codebase and all squad memory files (if present in a .squad folder within the project directory structure) to get up to speed on the current project.  Goal is to understand the history of the project, any potential team history, and current state of the codebase.
+
+**`/cos <absolute-path-to-project-brief.md>`** - Working agreement + engagement intake.
 
 Adopt the working agreement, then run intake against the brief. Intake means:
 
