@@ -40,6 +40,12 @@ On squadrunner, install:
 Verify with version commands.
 ```
 
+## 4. Install GitHub Copilot and Squad
+```
+On squadrunner, install GitHub Copilot and all dependencies
+On Squadrunner, install Squad and all dependencies
+```
+
 ## 4. Authenticate with GitHub
 
 ```
