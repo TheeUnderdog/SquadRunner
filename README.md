@@ -2,15 +2,15 @@
 
 **Cloud-based agentic development with Squad and GitHub Copilot CLI**
 
-SquadRunner is an architectural pattern for orchestrating multi-agent developer workflows using persistent Squads and a Computer Use Agent.
+SquadRunner is an architectural pattern for orchestrating multi-agent developer workflows using persistent Squads and [Microsoft Scout](https://aka.ms/scout) — Microsoft's AI desktop assistant.
 
 ## How It Works
 
 ```mermaid
 flowchart TD
-    COS[chief-of-staff.md] --> CUA
-    CUA --> GH[GitHub Issues<br/>Backlog]
-    CUA <--> H[Human PO & Chief Architect] --> GH[GitHub Issues<br/>Backlog]
+    COS[chief-of-staff.md] --> SCOUT
+    SCOUT[Microsoft Scout] --> GH[GitHub Issues<br/>Backlog]
+    SCOUT <--> H[Human PO & Chief Architect] --> GH[GitHub Issues<br/>Backlog]
     GH --> VM
     
     subgraph VM[SquadRunner VM]
@@ -52,7 +52,7 @@ flowchart TD
 
 | Component | Role |
 |-----------|------|
-| **Claw-based CUA** | Chief of Staff — bridges human PO and AI agents |
+| **[Microsoft Scout](https://aka.ms/scout)** | Chief of Staff — bridges human PO and AI agents |
 | **Squad** | Human-directed AI development teams through GitHub Copilot |
 | **SquadRunner VM** | Cloud execution — Linux VM running `squad watch` via SSH/tmux |
 | **GitHub** | Backlog + PRs — issues drive work, labels route to agents |
@@ -68,9 +68,11 @@ Agents are project-specific. Define your team in `.squad/team.md`:
 
 ## Setup
 
-**SquadRunner is designed to be set up by a Claw-based CUA.**
+**SquadRunner is designed to be set up by [Microsoft Scout](https://aka.ms/scout).**
 
-See **[SquadRunner Setup](docs/squadrunner-setup.md)** for the prompts to give your CUA. The guide walks through:
+[Microsoft Scout](https://aka.ms/scout) is Microsoft's AI desktop assistant — it runs shell commands, edits files, and drives cloud resources through natural conversation. It plays the Chief of Staff role in SquadRunner: bridging you (the human PO) and the Squad running on the VM.
+
+See **[SquadRunner Setup](docs/squadrunner-setup.md)** for the prompts to give Microsoft Scout. The guide walks through:
 
 1. Provisioning an Azure VM
 2. Configuring SSH access
@@ -78,11 +80,11 @@ See **[SquadRunner Setup](docs/squadrunner-setup.md)** for the prompts to give y
 4. Authenticating with GitHub
 5. Starting squad watch
 
-No scripts or manual commands required — just chat with your CUA and let it execute.
+No scripts or manual commands required — just chat with Microsoft Scout and let it execute.
 
 ## The Workflow
 
-1. **Groom** — Human + CUA audit GitHub backlog, set priorities and labels
+1. **Groom** — Human + Microsoft Scout audit GitHub backlog, set priorities and labels
 2. **Watch** — Ralph scans issues, routes to Squad Leader or direct to agents
 3. **Execute** — Squad Leader dispatches specialists in parallel
 4. **Review** — PRs opened as drafts, human reviews via sitrep command
