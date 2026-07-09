@@ -9,8 +9,8 @@ SquadRunner is an architectural pattern for orchestrating multi-agent developer 
 ```mermaid
 flowchart TD
     COS[chief-of-staff.md] --> CUA
-    Scout --> GH[GitHub Issues<br/>Backlog]
-    Scout <--> H[Human PO & Chief Architect] --> GH[GitHub Issues<br/>Backlog]
+    CUA --> GH[GitHub Issues<br/>Backlog]
+    CUA <--> H[Human PO & Chief Architect] --> GH[GitHub Issues<br/>Backlog]
     GH --> VM
     
     subgraph VM[SquadRunner VM]
