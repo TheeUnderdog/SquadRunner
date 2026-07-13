@@ -20,7 +20,7 @@ Adopt this agreement as the operating frame for the rest of the session. If a pr
 
 Adopt the working agreement, then review the codebase and all squad memory files (if present in a .squad folder within the project directory structure) to get up to speed on the current project.  Goal is to understand the history of the project, any potential team history, and current state of the codebase.
 
-**`/cos <absolute-path-to-project-brief.md>`** - Working agreement + engagement intake.
+**`/cos <absolute-path-to-project-brief.md>`** - Working agreement + project brief.
 
 Adopt the working agreement, then run intake against the brief. Intake means:
 
