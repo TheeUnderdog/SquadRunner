@@ -87,8 +87,9 @@ No scripts or manual commands required — just chat with Microsoft Scout and le
 1. **Groom** — Human + Microsoft Scout audit GitHub backlog, set priorities and labels
 2. **Watch** — Ralph scans issues, routes to Squad Leader or direct to agents
 3. **Execute** — Squad Leader dispatches specialists in parallel
-4. **Review** — PRs opened as drafts, human reviews via sitrep command
-5. **Merge** — Approved PRs merge, issues close, cycle repeats
+4. **Review** — PRs opened as drafts, human + Scout Chief of Staff review 
+5. **Merge** — Approved PRs merge, issues close, CI/CD runs
+6. Wash, Rinse, Repeat
 
 ## PO Branch
 
@@ -117,28 +118,3 @@ ssh squadrunner "tmux capture-pane -t squad -p | tail -50"
 ```bash
 ssh squadrunner "tmux pipe-pane -t squad 'cat >> ~/squad-watch.log'"
 ```
-
-## Results
-
-In our first production run:
-
-- **3 PRs in 15 minutes** while the human watched
-- **Parallel execution** — multiple agents running simultaneously
-- **Autonomous overnight** — Squad works while you sleep
-- **Full traceability** — every decision logged, every commit attributed
-
-## Cost
-
-| Resource | Monthly Cost |
-|----------|-------------|
-| Small Linux VM (2 vCPU, 4GB) | ~$15-30 |
-| GitHub (existing) | $0 |
-| Total | ~$15-30/month |
-
-## License
-
-MIT
-
----
-
-*This architecture pattern is not documented anywhere else. Novel as of May 2026.*
