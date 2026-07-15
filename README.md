@@ -2,7 +2,7 @@
 
 **Cloud-based agentic development with Scout, Squads and GitHub Copilot CLI**
 
-SquadRunner is an architectural pattern for orchestrating multi-agent developer workflows using persistent Squads and [Microsoft Scout](https://aka.ms/scout) — Microsoft's AI desktop assistant.
+SquadRunner is an architectural pattern for orchestrating multi-agent developer workflows on GitHub, using persistent Squads and [Microsoft Scout](https://aka.ms/scout) — Microsoft's AI desktop assistant.
 
 ## How It Works
 
