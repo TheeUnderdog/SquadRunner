@@ -67,6 +67,11 @@ Examples:
 - Keep description short (under 50 chars)
 - Use lowercase and hyphens only
 - Include issue number for traceability
+- Do not create extra repository copies for convenience. Use the approved branch/worktree strategy only when parallel work requires a separate checkout.
+- Prefer a normal branch in the existing checkout for single-lane work.
+- Use Git worktrees only for approved parallel issue work, and place them under the repo's agreed worktree root (for example, `C:\Code\<repo>-worktrees\issue-<number>`).
+- Remove temporary or completed worktrees after the PR is merged, blocked, or abandoned.
+- Never leave ad hoc copies such as `*-latest-*`, review clones, or local-test clones behind.
 
 ### Commands
 
@@ -77,6 +82,24 @@ git pull origin main
 
 # Create and switch to feature branch
 git checkout -b 42-add-health-endpoint
+```
+
+### Approved Parallel Worktree Pattern
+
+Use this only when parallel issue work requires an isolated checkout:
+
+```bash
+# From the primary repo checkout
+git fetch origin main
+git worktree add ../<repo>-worktrees/issue-42 -b 42-add-health-endpoint origin/main
+cd ../<repo>-worktrees/issue-42
+```
+
+Clean up after human merge, abandonment, or blocking:
+
+```bash
+git worktree remove ../<repo>-worktrees/issue-42
+git branch -D 42-add-health-endpoint
 ```
 
 ---
